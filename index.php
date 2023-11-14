@@ -5,12 +5,12 @@ $metaDesc = "Welcome to Hotel Mama Homepage!";
 include("inc/header.php");
   ?>
 
-<main>
+<main class="bg-light">
 
 
 
-  <div class="bg-light">
-    <div class="container col-xxl-8 px-4 py-5 bg-primary">
+  
+    <div class="container col-xxl-8 px-4 py-5 custom-box">
       <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
         <div class="col-10 col-sm-8 col-lg-6">
           <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
@@ -22,7 +22,7 @@ include("inc/header.php");
               <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
                 aria-label="Slide 3"></button>
             </div>
-            <div class="carousel-inner">
+            <div class="carousel-inner rounded">
               <div class="carousel-item active">
                 <img src="img/hotelroom1.jpeg" class="d-block w-100" alt="Beautiful hotelroom 1">
               </div>
@@ -51,13 +51,13 @@ include("inc/header.php");
             price!</p>
           <div class="d-grid gap-2 d-md-flex justify-content-md-start">
 
-            <a class="btn btn-danger btn-lg px-4 me-md-2" href="rooms.php" role="button">Book now!</a>
+            <a class="btn btn-primary btn-lg px-4 me-md-2" href="rooms.php" role="button">Book now!</a>
 
           </div>
         </div>
       </div>
     </div>
-  </div>
+  
 
 
 

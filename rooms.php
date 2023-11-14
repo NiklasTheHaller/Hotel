@@ -2,6 +2,8 @@
 $pageTitle = "Rooms";
 $metaDesc = "Book one of our rooms!";
 
+$roomNumber = "";
+
 include("inc/header.php")
     ?>
 
@@ -18,10 +20,7 @@ include("inc/header.php")
                         <div class="card-body">
                             <p class="card-text">Our worst room with a view of the Eiffel Tower &#129314;</p>
                             <div class="d-flex justify-content-between align-items-center">
-                                <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal"
-                                    data-bs-target="#exampleModal">
-                                    Book now!
-                                </button>
+                                <a class="btn btn-sm btn-outline-secondary" href="room1.php" role="button">Book now!</a>
                                 <?php include("inc/book.php"); ?>
                                 <small class="text-body-secondary">$76/night</small>
                             </div>
@@ -113,7 +112,7 @@ include("inc/header.php")
                         </div>
                     </div>
                 </div>
-                
+
             </div>
         </div>
     </div>

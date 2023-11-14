@@ -4,15 +4,15 @@
 
 // Include any default variable overrides here (though functions won't be available)
 
-$primary: #26779E;
-$secondary: #65A2B5;
-$light: #D4C9BC;
-$dark: #1A1C1B;
+$primary: #0000e7;
+$secondary: #f61d92;
+$light: #575456;
+$dark: #07181e;
 
-$success: #8FC1A9;
-$danger: #A63D40;
-$warning: #E2A76F;
-$info: #9C8AA5;
+$success: #009758;
+$danger: #ea1d00;
+$warning: #ddc800;
+$info: #70347b;
 
 @import "../node_modules/bootstrap/scss/bootstrap";
 
@@ -66,11 +66,9 @@ $info: #9C8AA5;
     border-radius: 10px; /* Rounded edges */
     padding: 20px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); /* Box shadow */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
     align-items: center;
-    height: 100vh;
+    text-align: center;
+    height: 44rem;
     max-width: 500px; /* Adjust the max-width to make the box narrower */
     margin: 0 auto; /* Center horizontally */
 }
