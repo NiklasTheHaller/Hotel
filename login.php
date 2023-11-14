@@ -2,6 +2,9 @@
 $pageTitle = "Login";
 $metaDesc = "Login Page";
 include("inc/header.php");
+
+$firstName = $lastName = $email = $confirmEmail = $password = $confirmPassword = "";
+$invalidEmail = $invalidPassword = false;
  
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   if (isset($_POST["email"])) {
@@ -20,6 +23,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (strlen($password) == 0) {
       $invalidPassword = "Please enter your password";
     } 
+  }
+
+  if (!$invalidEmail && !$invalidPassword) {
+    $_SESSION["firstname"] = "Niklas"; // hardcoded name
+    $_SESSION["active"] = true;
+
+    setcookie("theme","dark", time() +3600);
+
+    header("Refresh:0; url=index.php");
   }
 
 

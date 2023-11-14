@@ -1,3 +1,10 @@
+<?php
+
+session_start();
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -39,20 +46,28 @@
         </ul>
 
 
+        <!-- If anonymous blend out -->
+        <?php if ($_SESSION["active"] = true): ?>
+          <div class="text-end">
+            <a class="btn btn-outline-light me-2" href="login.php" role="button">Login</a>
 
-        <div class="text-end">
-          <a class="btn btn-outline-light me-2" href="login.php" role="button">Login</a>
+            <a class="btn btn-warning me-2" href="registration.php" role="button">Sign-up</a>
 
-          <a class="btn btn-warning me-2" href="registration.php" role="button">Sign-up</a>
+          </div>
+        <?php endif; ?>
 
-        </div>
-
+        <!-- -->
         <div class="dropdown text-end">
           <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown"
             aria-expanded="false">
             <img src="img/profile-picture/pfp.png" alt="mdo" width="32" height="32" class="rounded-circle">
           </a>
           <ul class="dropdown-menu text-small" style="">
+            <?php if (isset($_SESSION)): ?>
+              <li><a class="dropdown-item"> Welcome,
+                  <?= !empty($_SESSION["firstname"]) ? $_SESSION["firstname"] : "" ?>
+                </a></li>
+            <?php endif; ?>
             <li><a class="dropdown-item" href="#">Bookings</a></li>
             <li><a class="dropdown-item" href="profile.php">Profile</a></li>
             <li>
