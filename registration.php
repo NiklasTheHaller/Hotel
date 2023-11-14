@@ -67,13 +67,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
 
-<main>
+<main class="bg-light">
 
 
-    <div class="container mt-3 mb-3">
+    <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-6">
-                <div class="custom-box">
+                <div class="custom-box my-5">
 
                     <form class="container mt-4" action="registration.php" method="post">
                         <img class="mb-4 justify-center" src="img/icons8-hotel-48.png" alt="Hotel Logo">

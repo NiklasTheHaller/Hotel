@@ -1,6 +1,6 @@
-<footer class="footer mt-auto py-3 bg-body-tertiary">
+<footer class="footer mt-auto py-3 bg-body-dark">
   <div class="container">
-    <span class="text-body-secondary">Copyright © 2023. Hotel Mama | <a href="impressum.php">Impressum</a></span>
+    <span class="text-white">Copyright © 2023. Hotel Mama | <a href="impressum.php">Imprint</a></span>
   </div>
 </footer>
 

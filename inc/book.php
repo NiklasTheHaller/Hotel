@@ -8,6 +8,8 @@
             </div>
             <div class="modal-body">
 
+                <img src="img/hotelroom1.jpeg" height="225" class="rounded "
+                    alt="Picture of beatiful hotelroom 1">
                 <p>Would you like to include some of our offers in your booking?</p>
 
                 <form action="" method="post">
