@@ -5,9 +5,9 @@ include("inc/header.php");
 
 // Sample room data
 $selectedRoom = [
-    "image" => "img/hotelroom1.jpeg",
-    "description" => "Our worst room with a view of the Eiffel Tower &#129314;",
-    "price" => 76,
+    "image" => "img/hotelroom2.jpeg",
+    "description" => "Wonderful room with beach access",
+    "price" => 153,
     "breakfast" => "7.50",
     "parking" => "9.99",
     "pets" => "6.00",

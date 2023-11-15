@@ -1,6 +1,8 @@
 <?php
 
-session_start();
+if (session_status() == PHP_SESSION_NONE) {
+  session_start();
+}
 
 ?>
 
@@ -49,7 +51,7 @@ session_start();
         </ul>
 
         <!-- If not logged in -->
-        <?php if (!isset($_SESSION["active"]) || $_SESSION["active"] === false): ?>
+        <?php if (!isset($_SESSION["active"]) || $_SESSION["active"] === false) : ?>
           <div class="text-end">
             <a class="btn btn-outline-info me-2" href="login.php" role="button">Login</a>
             <a class="btn btn-warning me-2" href="registration.php" role="button">Sign-up</a>
@@ -57,14 +59,13 @@ session_start();
         <?php endif; ?>
 
         <!-- If logged in -->
-        <?php if (isset($_SESSION["active"]) && $_SESSION["active"] === true): ?>
+        <?php if (isset($_SESSION["active"]) && $_SESSION["active"] === true) : ?>
           <div class="dropdown text-end">
-            <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown"
-              aria-expanded="false">
+            <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
               <img src="img/profile-picture/pfp.png" alt="mdo" width="32" height="32" class="rounded-circle">
             </a>
             <ul class="dropdown-menu text-small" style="">
-              <?php if (isset($_SESSION["firstname"])): ?>
+              <?php if (isset($_SESSION["firstname"])) : ?>
                 <li><a class="dropdown-item"> Welcome,
                     <?= $_SESSION["firstname"] ?>
                   </a></li>

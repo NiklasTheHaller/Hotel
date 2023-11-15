@@ -30,7 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   // Validate password
   if (isset($_POST["password"])) {
     $password = $_POST["password"];
-  
+
     if (empty($password)) {
       $invalidPassword = "Please enter your password";
     }
@@ -62,7 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $token = $_COOKIE["remember_me_token"];
 
   // Add the same validation logic as before to ensure the credentials are correct
-  if (true) { // Replace with actual validation logic if needed
+  if (true) { // Replace with actual validation logic
     $_SESSION["firstname"] = $hardcodedUser["firstname"];
     $_SESSION["lastname"] = $hardcodedUser["lastname"];
     $_SESSION["active"] = true;
@@ -87,8 +87,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             <div class="mb-3">
               <div class="form-floating mb-3">
-                <input type="email" class="form-control <?= !empty($invalidEmail) ? 'is-invalid' : '' ?>" id="email"
-                  name="email" placeholder="name@example.com" value="<?= $email ?>" required>
+                <input type="email" class="form-control <?= !empty($invalidEmail) ? 'is-invalid' : '' ?>" id="email" name="email" placeholder="name@example.com" value="<?= $email ?>" required>
                 <label for="email">Email address</label>
                 <?= !empty($invalidEmail) ? '<div class="invalid-feedback is-invalid">' . $invalidEmail . '</div>' : '' ?>
               </div>
@@ -96,8 +95,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             <div class="mb-3">
               <div class="form-floating mb-3">
-                <input type="password" class="form-control <?= !empty($invalidPassword) ? 'is-invalid' : '' ?>"
-                  id="password" name="password" placeholder="Password" required>
+                <input type="password" class="form-control <?= !empty($invalidPassword) ? 'is-invalid' : '' ?>" id="password" name="password" placeholder="Password" required>
                 <label for="password">Password</label>
                 <?= !empty($invalidPassword) ? '<div class="invalid-feedback is-invalid">' . $invalidPassword . '</div>' : '' ?>
               </div>
@@ -127,4 +125,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <?php
 include("inc/footer.php")
-  ?>
+?>
