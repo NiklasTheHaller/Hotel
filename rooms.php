@@ -1,5 +1,5 @@
 <?php
-$pageTitle = "Booking";
+$pageTitle = "Hotel Mama | Booking";
 $metaDesc = "Book one of our rooms!";
 include("inc/header.php");
 
@@ -44,10 +44,7 @@ include("inc/header.php");
                         <div class="card-body">
                             <p class="card-text">Beautiful room at on our top floor</p>
                             <div class="d-flex justify-content-between align-items-center">
-                                <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                    Book now!
-                                </button>
-                                <?php include("inc/book.php"); ?>
+                            <a class="btn btn-sm btn-outline-secondary" href="room2.php" role="button">Book now!</a>
                                 <small class="text-body-secondary">$249/night</small>
                             </div>
                         </div>
@@ -59,10 +56,7 @@ include("inc/header.php");
                         <div class="card-body">
                             <p class="card-text">Our master suite</p>
                             <div class="d-flex justify-content-between align-items-center">
-                                <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                    Book now!
-                                </button>
-                                <?php include("inc/book.php"); ?>
+                            <a class="btn btn-sm btn-outline-secondary" href="room2.php" role="button">Book now!</a>
                                 <small class="text-body-secondary">$400/night</small>
                             </div>
                         </div>
@@ -74,10 +68,7 @@ include("inc/header.php");
                         <div class="card-body">
                             <p class="card-text">Cozy room with fireplace</p>
                             <div class="d-flex justify-content-between align-items-center">
-                                <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                    Book now!
-                                </button>
-                                <?php include("inc/book.php"); ?>
+                            <a class="btn btn-sm btn-outline-secondary" href="room2.php" role="button">Book now!</a>
                                 <small class="text-body-secondary">$102/night</small>
                             </div>
                         </div>
@@ -89,10 +80,7 @@ include("inc/header.php");
                         <div class="card-body">
                             <p class="card-text">Buget option for young travelers!</p>
                             <div class="d-flex justify-content-between align-items-center">
-                                <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                    Book now!
-                                </button>
-                                <?php include("inc/book.php"); ?>
+                            <a class="btn btn-sm btn-outline-secondary" href="room2.php" role="button">Book now!</a>
                                 <small class="text-body-secondary">$77/night</small>
                             </div>
                         </div>

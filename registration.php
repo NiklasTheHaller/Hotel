@@ -1,9 +1,10 @@
 <?php
-$pageTitle = "Registration";
+$pageTitle = "Hotel Mama | Registration";
 $metaDesc = "Sign-up Page";
 include("inc/header.php");
 
 $firstName = $lastName = $email = $confirmEmail = $password = $confirmPassword = "";
+$isValidSubmission = true;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -57,11 +58,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
-    if (true){
+
+    if (
+        isset($invalidEmail) ||
+        isset($invalidConfirmEmail) ||
+        isset($invalidPassword) ||
+        isset($invalidConfirmPassword)
+    ) {
+        $isValidSubmission = false; // Set to false if there are errors
+    }
+
+    // If the submission is valid, redirect to login.php
+    if ($isValidSubmission) {
         header("Location: login.php");
         exit;
     }
 }
+
+
 
 
 ?>
@@ -77,7 +91,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="col-md-6">
                 <div class="custom-box my-5">
 
-                    <form class="container mt-4" action="registration.php" method="post">
+                    <form class="container mt-4" action="registration.php" method="post" novalidate>
                         <img class="mb-4 justify-center" src="img/icons8-hotel-48.png" alt="Hotel Logo">
 
                         <div class="mb-3 row">

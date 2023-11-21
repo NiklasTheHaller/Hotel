@@ -62,7 +62,7 @@ if (session_status() == PHP_SESSION_NONE) {
         <?php if (isset($_SESSION["active"]) && $_SESSION["active"] === true) : ?>
           <div class="dropdown text-end">
             <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-              <img src="img/profile-picture/pfp.png" alt="mdo" width="32" height="32" class="rounded-circle">
+            <img src="<?php echo isset($_SESSION["profile_picture"]) ? $_SESSION["profile_picture"] : 'img/profile-picture/default.png'; ?>" alt="mdo" width="32" height="32" class="rounded-circle">
             </a>
             <ul class="dropdown-menu text-small" style="">
               <?php if (isset($_SESSION["firstname"])) : ?>

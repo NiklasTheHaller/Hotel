@@ -1,11 +1,11 @@
 <?php
-$pageTitle = "Room Details";
+$pageTitle = "Hotel Mama | Room Details";
 $metaDesc = "Details of the selected room";
 include("inc/header.php");
 
 // Sample room data
 $selectedRoom = [
-    "image" => "img/hotelroom2.jpeg",
+    "image" => "img/hotelroom4.jpeg",
     "description" => "Wonderful room with beach access",
     "price" => 153,
     "breakfast" => "7.50",

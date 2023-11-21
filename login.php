@@ -1,5 +1,5 @@
 <?php
-$pageTitle = "Login";
+$pageTitle = "Hotel Mama | Login";
 $metaDesc = "Login Page";
 include("inc/header.php");
 
