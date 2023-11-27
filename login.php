@@ -6,14 +6,8 @@ include("inc/header.php");
 $firstName = $lastName = $email = $confirmEmail = $password = $confirmPassword = "";
 $invalidEmail = $invalidPassword = $invalidCredentials = false;
 
-
-// hardcoded user 
-$hardcodedUser = [
-  "email" => "example@email.com",
-  "password" => "Tester123",
-  "firstname" => "Niklas",
-  "lastname" => "Haller",
-];
+// Database connection
+include("config/db_config.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   // Validate email
@@ -36,41 +30,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
   }
 
-  // Check if email and password match the hardcoded user
-  if ($email == $hardcodedUser["email"] && $password == $hardcodedUser["password"]) {
-    $_SESSION["firstname"] = $hardcodedUser["firstname"];
-    $_SESSION["lastname"] = $hardcodedUser["lastname"];
-    $_SESSION["active"] = true;
+  // If the submission is valid, check the email and password against the database
+  if (!$invalidEmail && !$invalidPassword) {
+    $stmt = $conn->prepare("SELECT firstname, lastname, userpassword FROM users WHERE email = ?");
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $stmt->bind_result($firstName, $lastName, $hashedPassword);
 
-    // If "Remember Me" is checked, generate and store a secure token
-    if (isset($_POST["remember_me"]) && $_POST["remember_me"] == "on") {
-      $token = bin2hex(random_bytes(32)); // Generate a secure random token
-      setcookie("remember_me_token", $token, time() + 3600 * 24 * 30); // Set cookie for 30 days
+    if ($stmt->fetch() && password_verify($password, $hashedPassword)) {
+      $_SESSION["firstname"] = $firstName;
+      $_SESSION["lastname"] = $lastName;
+      $_SESSION["active"] = true;
+      header("Location: index.php");
+      exit();
     } else {
-      // Clear "Remember Me" cookie if not checked
-      setcookie("remember_me_token", "", time() - 3600);
+      // Invalid credentials, show an error
+      $invalidCredentials = "Invalid email or password";
     }
-
-    header("Location: index.php");
-    exit();
-  } else {
-    // Invalid credentials, show an error
-    $invalidCredentials = "Invalid email or password";
   }
-} elseif (isset($_COOKIE["remember_me_token"])) {
-  // If "Remember Me" cookie exists, validate the token and automatically log in the user
-  $token = $_COOKIE["remember_me_token"];
-
-  // Add the same validation logic as before to ensure the credentials are correct
-  if (true) { // Replace with actual validation logic
-    $_SESSION["firstname"] = $hardcodedUser["firstname"];
-    $_SESSION["lastname"] = $hardcodedUser["lastname"];
-    $_SESSION["active"] = true;
-    header("Location: index.php");
-    exit();
-  }
-}
+} 
 ?>
+
 
 <main class="bg-light">
   <div class="container">

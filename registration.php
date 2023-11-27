@@ -3,10 +3,19 @@ $pageTitle = "Hotel Mama | Registration";
 $metaDesc = "Sign-up Page";
 include("inc/header.php");
 
-$firstName = $lastName = $email = $confirmEmail = $password = $confirmPassword = "";
+$firstName = $lastName = $email = $confirmEmail = $password = $confirmPassword = $gender = "";
 $isValidSubmission = true;
 
+include("config/db_config.php");
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    if (!isset($_POST["gender"])) {
+        $invalidGender = "Please select your gender";
+        $isValidSubmission = false;
+    } else {
+        $gender = $_POST["gender"];
+    }
 
     if (isset($_POST["firstname"])) {
         $firstName = trim($_POST["firstname"]);
@@ -17,12 +26,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     if (isset($_POST["email"])) {
-        $email = trim($_POST["email"]);
+        $email = filter_var(trim($_POST["email"]), FILTER_SANITIZE_EMAIL);
 
         if (strlen($email) == 0) {
             $invalidEmail = "Please enter your email address";
+            $isValidSubmission = false;
         } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $invalidEmail = "Please validate your email address";
+            $isValidSubmission = false;
         }
     }
 
@@ -31,8 +42,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if (strlen($confirmEmail) == 0) {
             $invalidEmail = "Please confirm your email address";
+            $isValidSubmission = false;
         } elseif ($confirmEmail != $email) {
             $invalidEmail = "Your emails do not match";
+            $isValidSubmission = false;
         }
     }
 
@@ -41,10 +54,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if (strlen($password) == 0) {
             $invalidPassword = "Please enter your password";
+            $isValidSubmission = false;
         } elseif (strlen($password) < 8) {
             $invalidPassword = "Your password must contain at least 8 characters";
+            $isValidSubmission = false;
         } elseif (!preg_match('/^(?=.*[!@#$%^&*-])(?=.*[0-9])(?=.*[A-Z]).{8,20}$/', $password)) {
             $invalidPassword = "Your password must contain at least one special character";
+            $isValidSubmission = false;
         }
     }
 
@@ -53,32 +69,41 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if (strlen($confirmPassword) == 0) {
             $invalidConfirmPassword = "Please enter your password";
+            $isValidSubmission = false;
         } elseif ($confirmPassword != $password) {
             $invalidConfirmPassword = "Your passwords do not match";
+            $isValidSubmission = false;
         }
     }
 
-
-    if (
-        isset($invalidEmail) ||
-        isset($invalidConfirmEmail) ||
-        isset($invalidPassword) ||
-        isset($invalidConfirmPassword)
-    ) {
-        $isValidSubmission = false; // Set to false if there are errors
-    }
-
-    // If the submission is valid, redirect to login.php
+    // If the submission is valid, hash the password and store the user in the database
     if ($isValidSubmission) {
+        // Use prepared statements to prevent SQL injection
+        $stmt = $conn->prepare("INSERT INTO users (id, firstname, lastname, userpassword, email, gender) VALUES (?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("ssssss", $id, $firstName, $lastName, $hashedPassword, $email, $gender);
+
+        // Set id to null for auto-increment
+        $id = null;
+
+        // Hash the password
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+        // Execute the statement
+        if ($stmt->execute()) {
+            echo "New record created successfully";
+        } else {
+            echo "Error: " . $stmt->error;
+        }
+
+        // Close the statement
+        $stmt->close();
+
         header("Location: login.php");
         exit;
     }
 }
-
-
-
-
 ?>
+
 
 
 
@@ -91,8 +116,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="col-md-6">
                 <div class="custom-box my-5">
 
-                    <form class="container mt-4" action="registration.php" method="post" novalidate>
+                    <form class="container mt-4" action="" method="post" novalidate>
                         <img class="mb-4 justify-center" src="img/icons8-hotel-48.png" alt="Hotel Logo">
+
+                        <p>Please select your Gender</p>
+                        <div class="mb-3">
+                            <div class="col form-check-inline">
+                                <input class="form-check-input" type="radio" name="gender" id="male" value="male" <?php echo (isset($_POST['gender']) && $_POST['gender'] == 'male') ? 'checked' : ''; ?> required>
+                                <label class="form-check-label">Male</label>
+                            </div>
+                            <div class="col form-check-inline">
+                                <input class="form-check-input" type="radio" name="gender" id="female" value="female" <?php echo (isset($_POST['gender']) && $_POST['gender'] == 'female') ? 'checked' : ''; ?> required>
+                                <label class="form-check-label">Female</label>
+                            </div>
+                            <div class="col form-check-inline">
+                                <input class="form-check-input" type="radio" name="gender" id="other" value="other" <?php echo (isset($_POST['gender']) && $_POST['gender'] == 'other') ? 'checked' : ''; ?> required>
+                                <label class="form-check-label">Other</label>
+                            </div>
+                        </div>
+
 
                         <div class="mb-3 row">
                             <div class="col">
