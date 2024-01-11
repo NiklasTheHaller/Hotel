@@ -1,98 +1,57 @@
 <?php
 $pageTitle = "Hotel Mama | Booking";
-$metaDesc = "Book one of our rooms!";
+$metaDesc = "Explore and book rooms at Hotel Mama";
 include("inc/header.php");
+require_once("config/db_config.php");
 
+// Get the page number from the URL, default is 1
+$page = isset($_GET['page']) ? $_GET['page'] : 1;
 
+// Calculate the start index for the SQL query
+$start = ($page - 1) * 15;
 
-?>
+// Fetch and display hotel rooms
+$sql = "SELECT * FROM rooms ORDER BY id DESC LIMIT ?, 15";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $start);
+$stmt->execute();
+$result = $stmt->get_result();
 
-<main>
-
-    <div class="album py-5 bg-body-tertiary">
+if ($result->num_rows > 0) {
+    echo '<div class="album py-5 bg-body-tertiary">
         <div class="container">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">';
 
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-                <div class="col">
-                    <div class="card shadow-sm object-fit-contain">
-                        <img src="img/hotelroom1.jpeg" height="225" class="object-fit-cover border rounded" alt="Picture of beatiful hotelroom 1">
-                        <div class="card-body">
-                            <p class="card-text">Our worst room with a view of the Eiffel Tower &#129314;</p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <a class="btn btn-sm btn-outline-secondary" href="room1.php" role="button">Book now!</a>
-                                
-                                <small class="text-body-secondary">$76/night</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card shadow-sm object-fit-contain">
-                        <img src="img/hotelroom4.jpeg" height="225" class="object-fit-cover border rounded" alt="Picture of beatiful hotelroom 4">
-                        <div class="card-body">
-                            <p class="card-text">Wonderful room with beach access</p>
-                            <div class="d-flex justify-content-between align-items-center">
-                            <a class="btn btn-sm btn-outline-secondary" href="room2.php" role="button">Book now!</a>
-                                <small class="text-body-secondary">$153/night</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card shadow-sm object-fit-contain">
-                        <img src="img/hotelroom8.jpeg" height="225" class="object-fit-cover border rounded" alt="Picture of beatiful hotelroom 8">
-                        <div class="card-body">
-                            <p class="card-text">Beautiful room at on our top floor</p>
-                            <div class="d-flex justify-content-between align-items-center">
-                            <a class="btn btn-sm btn-outline-secondary" href="room2.php" role="button">Book now!</a>
-                                <small class="text-body-secondary">$249/night</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card shadow-sm object-fit-contain">
-                        <img src="img/hotelroom6.jpeg" height="225" class="object-fit-cover border rounded" alt="Picture of beatiful hotelroom 6">
-                        <div class="card-body">
-                            <p class="card-text">Our master suite</p>
-                            <div class="d-flex justify-content-between align-items-center">
-                            <a class="btn btn-sm btn-outline-secondary" href="room2.php" role="button">Book now!</a>
-                                <small class="text-body-secondary">$400/night</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card shadow-sm object-fit-contain">
-                        <img src="img/hotelroom2.jpeg" height="225" class="object-fit-cover border rounded" alt="Picture of beatiful hotelroom 2">
-                        <div class="card-body">
-                            <p class="card-text">Cozy room with fireplace</p>
-                            <div class="d-flex justify-content-between align-items-center">
-                            <a class="btn btn-sm btn-outline-secondary" href="room2.php" role="button">Book now!</a>
-                                <small class="text-body-secondary">$102/night</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card shadow-sm object-fit-contain">
-                        <img src="img/hotelroom9.jpeg" height="225" class="object-fit-cover border rounded" alt="Picture of beatiful hotelroom 9">
-                        <div class="card-body">
-                            <p class="card-text">Buget option for young travelers!</p>
-                            <div class="d-flex justify-content-between align-items-center">
-                            <a class="btn btn-sm btn-outline-secondary" href="room2.php" role="button">Book now!</a>
-                                <small class="text-body-secondary">$77/night</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    // Output data of each room
+    while ($row = $result->fetch_assoc()) {
+        // Get the first couple of words of the room description
+        $descriptionPreview = implode(' ', array_slice(explode(' ', $row["roomdescription"]), 0, 18)) . '...';
 
-            </div>
+        echo '<div class="col">
+                <div class="card shadow-sm object-fit-contain">
+                    <img src="' . $row["imagepath"] . '" height="225" class="object-fit-cover border rounded" alt="' . '">
+                    <div class="card-body">
+                        <p class="card-text">' . $descriptionPreview . '</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h3 class="card-text">$' . $row["price"] . '</h3>
+                            <a class="btn btn-sm btn-outline-secondary" href="room.php?id=' . $row["id"] . '" role="button">Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>';
+    }
+    echo '</div>
         </div>
-    </div>
+        </div>';
+} else {
+    echo '<div class="custom-box mx-5">' . "No results" . '</div>';
+}
+
+$conn->close();
+?>
 
 </main>
 
 <?php
-include("inc/footer.php")
+include("inc/footer.php");
 ?>

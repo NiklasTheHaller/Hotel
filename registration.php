@@ -6,7 +6,7 @@ include("inc/header.php");
 $firstName = $lastName = $email = $confirmEmail = $password = $confirmPassword = $gender = "";
 $isValidSubmission = true;
 
-include("config/db_config.php");
+require_once("config/db_config.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -116,7 +116,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="col-md-6">
                 <div class="custom-box my-5">
 
-                    <form class="container mt-4" action="" method="post" novalidate>
+                    <form class="container mt-4" action="" method="post" novalidate> <!-- accidentally left novalidate in submission -->
                         <img class="mb-4 justify-center" src="img/icons8-hotel-48.png" alt="Hotel Logo">
 
                         <p>Please select your Gender</p>

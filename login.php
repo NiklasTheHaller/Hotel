@@ -5,9 +5,10 @@ include("inc/header.php");
 
 $firstName = $lastName = $email = $confirmEmail = $password = $confirmPassword = "";
 $invalidEmail = $invalidPassword = $invalidCredentials = false;
+$inactiveAccount = false;
 
 // Database connection
-include("config/db_config.php");
+require_once("config/db_config.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   // Validate email
@@ -32,33 +33,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   // If the submission is valid, check the email and password against the database
   if (!$invalidEmail && !$invalidPassword) {
-    $stmt = $conn->prepare("SELECT firstname, lastname, userpassword FROM users WHERE email = ?");
+    $stmt = $conn->prepare("SELECT firstname, lastname, userpassword, id, isAdmin, active FROM users WHERE email = ? LIMIT 1");
     $stmt->bind_param("s", $email);
     $stmt->execute();
-    $stmt->bind_result($firstName, $lastName, $hashedPassword);
+    $stmt->bind_result($firstName, $lastName, $hashedPassword, $id, $isAdmin, $active);
 
     if ($stmt->fetch() && password_verify($password, $hashedPassword)) {
-      $_SESSION["firstname"] = $firstName;
-      $_SESSION["lastname"] = $lastName;
-      $_SESSION["active"] = true;
-      header("Location: index.php");
-      exit();
+      if ($active == 1) {
+        // Account is active, proceed with login
+        $_SESSION["firstname"] = $firstName;
+        $_SESSION["lastname"] = $lastName;
+        $_SESSION["uid"] = $id;
+        $_SESSION["isAdmin"] = $isAdmin;
+        $_SESSION["active"] = true;
+        header("Location: index.php");
+        exit();
+      } else {
+        // Account is inactive, show an error
+        $inactiveAccount = true;
+      }
     } else {
       // Invalid credentials, show an error
       $invalidCredentials = "Invalid email or password";
     }
   }
-} 
+}
 ?>
-
 
 <main class="bg-light">
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-md-6">
         <div class="custom-box mx-auto my-5">
-
-
           <form class="container mt-4" method="post" novalidate>
             <div class="mb-3">
               <img class="mb-4" src="img/icons8-hotel-48.png" alt="Hotel Logo">
@@ -92,6 +98,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               <button class="btn btn-primary w-100 py-2" type="submit">Sign in</button>
             </div>
 
+            <?php if ($inactiveAccount) : ?>
+              <div class="alert alert-danger mt-3" role="alert">
+                Your account is inactive. Please contact support for assistance.
+              </div>
+            <?php endif; ?>
 
             <div class="mb-3">
               <p class="mt-5 mb-3 text-body-secondary">© 2017–2023</p>

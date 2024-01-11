@@ -1,46 +1,62 @@
 <?php
-$pageTitle="Hotel Mama | Imprint";
-$metaDesc="The Hotel Mama imprint page";
+$pageTitle = "Hotel Mama | Imprint";
+$metaDesc = "The Hotel Mama imprint page";
 
 include("inc/header.php")
-    ?>
-<main>
+?>
+<main class="container py-3">
+    <div class="custom-box row">
+        <div class="col-lg-6 my-3">
+            <h1 class="display-4">Imprint</h1>
+            <dl class="row">
+                <dt class="col-sm-3">Address:</dt>
+                <dd class="col-sm-9">Mama GmbH Hochstädtplatz 1, 1200 Vienna</dd>
 
-    <div class="container">
-        <div class="imprint-box my-3">
-            <h1>Imprint</h1>
-            <h5>Adress:</h5>
-            <p>
-                Mama GmbH Hochstädtplatz 1, 1200 Vienna
-            </p>
+                <dt class="col-sm-3">Commercial Register Number:</dt>
+                <dd class="col-sm-9">FN 582113 g</dd>
 
-            <h5>Commercial Register Number:</h5>
-                <p>FN 582113 g</p>
+                <dt class="col-sm-3">Competent Authority:</dt>
+                <dd class="col-sm-9">Federal Ministry of Agriculture, Regions and Tourism</dd>
 
-            <h5>Competent Authority:</h5>
-                <p>Federal Ministry of Agriculture, Regions and Tourism</p>
+                <dt class="col-sm-3">VAT Number:</dt>
+                <dd class="col-sm-9">ATU78304167</dd>
 
-            <h5>VAT Number:</h5>
-                <p>ATU78304167</p>
+                <dt class="col-sm-3">Commercial Court:</dt>
+                <dd class="col-sm-9">Commercial Court Vienna</dd>
 
-            <h5>Authorized Representatives:</h5>
-                Niklas Haller<br>
-                Noah Seyhan</p>
+                <dt class="col-sm-3">Business Description:</dt>
+                <dd class="col-sm-9">Management and operation of hotels</dd>
 
-            <h5>Commercial Court:</h5>
-                Commercial Court Vienna</p>
+                <dt class="col-sm-3">Contact:</dt>
+                <dd class="col-sm-9"><a href="mailto:hotel-mama@info.com">hotel-mama@info.com</a></dd>
+            </dl>
+        </div>
+        <div class="col-lg-6 my-3">
+            <h1 class="display-4">Team members:</h1>
+            <!-- Niklas -->
+            <div class="mb-3 shadow-sm row">
+                <div class="col-4">
+                    <img src="img/hotelroom1.jpeg" class="rounded" width="250" alt="Niklas Haller">
+                </div>
 
-            <h5>Business Description:</h5>
-                Management and operation of hotels</p>
+                <div class="col-8">
+                    <h5 class="fw-bold fs-3 text-end">Niklas Haller</h5>
+                </div>
+            </div>
+            <!-- Noah -->
+            <div class="mb-3 shadow-sm row">
+                <div class="col-4">
+                    <img src="img/hotelroom1.jpeg" class="rounded" width="250" alt="Niklas Haller">
+                </div>
 
-            <h5>Contact:</h5>
-                <a href="mailto:hotel-mama@info.com">hotel-mama@info.com</a>
-            </p>
+                <div class="col-8">
+                    <h5 class="fw-bold fs-3 text-end">Noah Seyhan</h5>
+                </div>
+            </div>
         </div>
     </div>
-
 </main>
 
 <?php
 include("inc/footer.php")
-    ?>
+?>
